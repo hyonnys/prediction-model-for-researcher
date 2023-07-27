@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pulsar star Predict Page</title>
+</head>
+<body>
+    <h1>Predict Pulsar Stars</h1>
+    <form action="/predict_pulsars" method="post">
+    </form>
+
+    {% if prediction %}
+    <h2>입력된 데이터:</h2>
+
+    <p>Mean of the integrated profile: {{ prediction.mean_profile }}</p>
+    <p>Standard deviation of the integrated profile: {{ prediction.std_profile }}</p>
+    <p>Excess kurtosis of the integrated profile: {{ prediction.kurtosis_profile }}</p>
+    <p>Skewness of the integrated profile: {{ prediction.skewness_profile }}</p>
+    <p>Mean of the DM-SNR curve: {{ prediction.mean_dmsnr }}</p>
+    <p>Standard deviation of the DM-SNR curve: {{ prediction.std_dmsnr }}</p>
+    <p>Excess kurtosis of the DM-SNR curve: {{ prediction.kurtosis_dmsnr }}</p>
+    <p>Skewness of the DM-SNR curve: {{ prediction.skewness_dmsnr }}</p>
+    
+    <h2>Prediction Result:</h2>
+    <p>중성자별 여부: {{ prediction.target }}</p>
+    <p>소요 시간 Time Taken: {{ prediction.time_taken }}</p>
+    <p>f1-score: {{ prediction.f1_score }}</p>
+    {% endif %}
+</body>
+</html>

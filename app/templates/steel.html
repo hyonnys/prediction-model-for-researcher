@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Steel Plate Predict Page</title>
+</head>
+<body>
+    <h1>Predict Steel plate</h1>
+    <form action="/predict_Steel" method="post">
+        <label for=" X_Minimum">1. X_Minimum:</label>
+        <input type="number" id="X_Minimum" name="X_Minimum" step="1" required><br>
+        
+        <label for="X_Maximum">2. X_Maximum:</label>
+        <input type="number" id="X_Maximum" name="X_Maximum" step="1" required><br>
+
+        <label for="Y_Minimum">3. Y_Minimum:</label>
+        <input type="number" id="Y_Minimum" name="Y_Minimum" step="1" required><br>
+
+        <label for="Y_Maximum">4. Y_Maximum:</label>
+        <input type="number" id="Y_Maximum" name="Y_Maximum" step="1" required><br>
+
+        <label for="Pixels_Areas">5. Pixels_Areas:</label>
+        <input type="number" id="Pixels_Areas" name="Pixels_Areas" step="1" required><br>
+
+        <label for="X_Perimeter">6. X_Perimeter:</label>
+        <input type="number" id="X_Perimeter" name="X_Perimeter" step="1" required><br>
+
+        <label for="Y_Perimeter">7. Y_Perimeter:</label>
+        <input type="number" id="Y_Perimeter" name="Y_Perimeter" step="1" required><br>
+
+        <label for="Sum_of_Luminosity">8. Sum_of_Luminosity:</label>
+        <input type="number" id="Sum_of_Luminosity" name="Sum_of_Luminosity" step="1" required><br>
+
+        <label for="Minimum_of_Luminosity">9. Minimum_of_Luminosity:</label>
+        <input type="number" id="Minimum_of_Luminosity" name="Minimum_of_Luminosity" step="1" required><br>
+
+        <label for="Maximum_of_Luminosity">10. Maximum_of_Luminosity:</label>
+        <input type="number" id="Maximum_of_Luminosity" name="Maximum_of_Luminosity" step="1" required><br>
+
+        <label for="Length_of_Conveyer">11. Length_of_Conveyer:</label>
+        <input type="number" id="Length_of_Conveyer" name="Length_of_Conveyer" step="1" required><br>
+
+        <label for="TypeOfSteel_A300">12. TypeOfSteel_A300:</label>
+        <input type="number" id="TypeOfSteel_A300" name="TypeOfSteel_A300" required><br>
+
+        <label for="TypeOfSteel_A400">13. TypeOfSteel_A300:</label>
+        <input type="number" id="TypeOfSteel_A400" name="TypeOfSteel_A400" required><br>
+
+        <label for="Steel_Plate_Thickness">14. Steel_Plate_Thickness:</label>
+        <input type="number" id="Steel_Plate_Thickness" name="Steel_Plate_Thickness" step="5" required><br>
+
+        <label for="Edges_Index">15. Edges_Index:</label>
+        <input type="number" id="Edges_Index" name="Edges_Index" step="0.0001" required><br>
+
+        <label for="Empty_Index">16. Empty_Index:</label>
+        <input type="number" id="Empty_Index" name="Empty_Index" step="0.0001" required><br>
+
+        <label for="Square_Index">17. Square_Index:</label>
+        <input type="number" id="Square_Index" name="Square_Index" step="0.0001" required><br>
+
+        <label for="Outside_X_Index">18. Outside_X_Index:</label>
+        <input type="number" id="Outside_X_Index" name="Outside_X_Index" step="0.0001" required><br>
+
+        <label for="Edges_X_Index">19. Edges_X_Index:</label>
+        <input type="number" id="Edges_X_Index" name="Edges_X_Index" step="0.0001" required><br>
+
+        <label for="Edges_Y_Index">20. Edges_Y_Index:</label>
+        <input type="number" id="Edges_Y_Index" name="Edges_Y_Index" step="0.0001" required><br>
+
+        <label for="Outside_Global_Index">21. Outside_Global_Index:</label>
+        <input type="number" id="Outside_Global_Index" name="Outside_Global_Index" step="0.5" required><br>
+
+        <label for="LogOfAreas">22. LogOfAreas:</label>
+        <input type="number" id="LogOfAreas" name="LogOfAreas" step="0.0001" required><br>
+
+        <label for="Log_X_Index">23. Log_X_Index:</label>
+        <input type="number" id="Log_X_Index" name="Log_X_Index" step="0.0001" required><br>
+
+        <label for="Log_Y_Index">24. Log_Y_Index:</label>
+        <input type="number" id="Log_Y_Index" name="Log_Y_Index" step="0.0001" required><br>
+
+        <label for="Orientation_Index">25. Orientation_Index:</label>
+        <input type="number" id="Orientation_Index" name="Orientation_Index" step="0.0001" required><br>
+
+        <label for="Luminosity_Index">26. Luminosity_Index:</label>
+        <input type="number" id="Luminosity_Index" name="Luminosity_Index" step="0.0001" required><br>
+
+        <label for="SigmoidOfAreas">27. SigmoidOfAreas	:</label>
+        <input type="number" id="SigmoidOfAreas" name="SigmoidOfAreas" step="0.0001" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>
+

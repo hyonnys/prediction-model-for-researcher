@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Abalone Predict Page</title>
+</head>
+<body>
+    <h1>Predict Abalone rings</h1>
+    <form action="/predict_abalone" method="post">
+    </form>
+
+    {% if prediction %}
+    <h2>입력된 데이터:</h2>
+    
+    <p>1. 전복 성별 Sex(M,F,I): {{ prediction.sex }}</p>
+    <p>2. 껍데기 최대 길이 Length(mm): {{ prediction.length }}</p>
+    <p>3. 직경 Diameter(mm): {{ prediction.diameter }}</p>
+    <p>4. 총 길이 Height(mm): {{ prediction.height }}</p>
+    <p>5. 총 무게 Whole Weight(mm): {{ prediction.whole_weight }}</p>
+    <p>6. 전복 살 무게 Shucked Weight(g): {{ prediction.shucked_weight }}</p>
+    <p>7. 내장 무게 Viscera Weight(g): {{ prediction.viscera_weight }}</p>
+    <p>8. 껍질 무게 Shell Weight: {{ prediction.shell_weight }}</p>
+
+    <h2>Prediction Result:</h2>
+    <p><li>전복 수명 rings: {{ prediction.rings }}</p></li>
+    <p><li>소요 시간 Time Taken(s): {{ prediction.time_taken }}</li></p>
+    <p><li>정확도 Accuracy: {{ prediction.accuracy }}</li></p>
+    {% endif %}
+</body>
+</html>

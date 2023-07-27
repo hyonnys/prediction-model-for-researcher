@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pulsar star Predict Page</title>
+</head>
+<body>
+    <h1>Predict Pulsar Stars</h1>
+    <form action="/predict_pulsars" method="post">
+        <label for="mean_profile">Mean of the integrated profile:</label>
+        <input type="number" id="mean_profile" name="mean_profile" step="0.00001" required><br>
+        
+        <label for="std_profile">Standard deviation of the integrated profile:</label>
+        <input type="number" id="std_profile" name="std_profile" step="0.00001" required><br>
+
+        <label for="kurtosis_profile">Excess kurtosis of the integrated profile:</label>
+        <input type="number" id="kurtosis_profile" name="kurtosis_profile" step="0.00001" required><br>
+
+        <label for="skewness_profile">Skewness of the integrated profile:</label>
+        <input type="skewness_profile" id="skewness_profile" name="skewness_profile" step="0.00001" required><br>
+
+        <label for="mean_dmsnr">Mean of the DM-SNR curve:</label>
+        <input type="number" id="mean_dmsnr" name="mean_dmsnr" step="0.00001" required><br>
+
+        <label for="std_dmsnr">Standard deviation of the DM-SNR curve	 :</label>
+        <input type="number" id="std_dmsnr" name="std_dmsnr" step="0.00001" required><br>
+
+        <label for="kurtosis_dmsnr">Excess kurtosis of the DM-SNR curve:</label>
+        <input type="number" id="kurtosis_dmsnr" name="kurtosis_dmsnr" step="0.00001" required><br>
+
+        <label for="skewness_dmsnr">Skewness of the DM-SNR curve:</label>
+        <input type="number" id="skewness_dmsnr" name="skewness_dmsnr" step="0.00001" required><br>
+
+        <button type="submit">Predict</button>
+    </form>
+</body>
+</html>

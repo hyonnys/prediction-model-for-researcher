@@ -1,0 +1,12 @@
+env/
+__pyahce__/
+
+*.data
+*.data.*
+data.*
+*.model
+*.mode.*
+model.*
+*.env
+*.env.*
+env.*

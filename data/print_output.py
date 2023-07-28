@@ -1,7 +1,8 @@
 import os 
 import time
-import numpy as np
-from sklearn.metrics import mean_squared_error, r2_score, f1_score, recall_score, precision_score, confusion_matrix
+import pandas as pd # pip install pandas
+import numpy as np # pip install numpy
+from sklearn.metrics import * # pip install scikit-learn
 
 def logging_time(original_fn):
     """
@@ -16,6 +17,7 @@ def logging_time(original_fn):
         return y_pred
     출력 예시) Execution_Time[model_run]: 0.04 sec 
               array([]) # y_pred
+    [출처] : https://kimjingo.tistory.com/85 
     """
     def wrapper_fn(*args, **kwargs):
         start_time = time.time()
@@ -24,17 +26,6 @@ def logging_time(original_fn):
         print(f"Execution_Time[{original_fn.__name__}]: {end_time-start_time:.2f} sec")
         return result
     return wrapper_fn
-
-# def measure_time(model, input):
-#     """
-#     model (object) : 학습된 모델
-#     input (array-like) : 입력 데이터-독립변수
-#     """
-#     start_time = time.time()
-#     predict = model. predict(input)
-#     end_time = time.time()
-#     execution_time = end_time - start_time
-#     return execution_time
 
 def reg_eval(y_true, y_pred): # 회귀 성능 평가지표 출력
     """

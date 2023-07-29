@@ -1,39 +1,27 @@
 import uvicorn #pip install
 import time #소요시간 출력
-from fastapi import FastAPI, HTTPException, Request, Form, File, UploadFile #pip install
-from fastapi.responses import FileResponse, HTMLResponse #pip install
+from fastapi import FastAPI, Request, Form, File, UploadFile #pip install
+from fastapi.responses import HTMLResponse #pip install
 from fastapi.templating import Jinja2Templates #pip install
 from fastapi.staticfiles import StaticFiles #pip install
 from pydantic import BaseModel 
-import joblib #pip install
-import pickle #pip install
+import joblib 
 #--------------------------------------
 import os
-import regression_model #py file 이름으로 설정 필요
-import binary_model #py file 이름으로 설정 필요
-import multi_model #py file 이름으로 설정 필요
+import regression_model 
+import binary_model
+import multi_model
 #---------------------------------------
-import pandas as pd #pip install
-import math
 import numpy as np
-from sklearn.model_selection import train_test_split
-from keras.models import Sequential #pip install
-from keras.layers import Dense 
-from keras.optimizers import Adam, RMSprop
-from keras.layers import Dropout
-from sklearn.preprocessing import StandardScaler #pip install
-from keras.callbacks import EarlyStopping
+from keras.optimizers import RMSprop
 from sklearn.metrics import *
 from tensorflow.keras.models import model_from_json
-from tensorflow.keras.models import load_model
 #---------------------------------------
 #app 객체 선포
 app = FastAPI()
-#scaler 선포
-scaler = StandardScaler()
-# 정적 파일(이미지, 스타일시트 등)을 제공하기 위해 필요한 설정
+# 이미지, 스타일시트 적용
 app.mount("/static", StaticFiles(directory="static"), name="static")
-# 템플릿을 로드하기 위한 설정
+# 템플릿 로드
 templates = Jinja2Templates(directory="templates")
 #time 반올림
 def round_prediction_time(time_taken: float, decimal_places: int) -> float:
@@ -43,16 +31,14 @@ def round_prediction_time(time_taken: float, decimal_places: int) -> float:
 #기본 페이지 라우트
 @app.get("/", response_class=HTMLResponse)
 async def read_root(request: Request):
-    content = "ADN team PROJECT_AI software upgrade_demo.ver"
-    return templates.TemplateResponse("index.html", {"request": request, "content": content})
+    return templates.TemplateResponse("index.html", {"request": request})
 
 #-----------------------------------------------------------------------------------------
 #Abalone페이지 성능 검증 기능 구현
 # Abalone 성능 페이지 라우트
 @app.get("/abalone_p", response_class=HTMLResponse)
 async def read_abalone(request: Request):
-    content = "Abalone 페이지입니다."
-    return templates.TemplateResponse("abalone_perform_input.html", {"request": request, "content": content})
+    return templates.TemplateResponse("abalone_perform_input.html", {"request": request})
 
 # Abalone validation 페이지 라우트
 @app.post("/abalone_perform_evaluate/")
@@ -63,13 +49,13 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
         f.write(contents)
 
     # regression_model.py에서 evaluate_model 함수 호출
-    mse, mae = regression_model.evaluate_model("validation_set.csv")
+    mse, mae, Time_taken = regression_model.evaluate_model("validation_set.csv")
 
     # # 임시 검증 세트 파일 삭제
     os.remove("validation_set.csv")
 
     # HTML 템플릿에 mse와 mae 값을 넘겨 웹페이지에 출력
-    return templates.TemplateResponse("abalone_perform_evaluate.html", {"request": request, "mse": np.round(mse,2), "mae": np.round(mae,2)})
+    return templates.TemplateResponse("abalone_perform_evaluate.html", {"request": request, "mse": np.round(mse,2), "mae": np.round(mae,2), "Time_taken": np.round(Time_taken,2)})
 
 #----------------------------------------------------------------------------------------
 #Abalone페이지 예측 기능 구현
@@ -169,8 +155,7 @@ async def predict_abalone(request: Request,
 # Pulsar 성능 페이지 라우트
 @app.get("/pulsars_p", response_class=HTMLResponse)
 async def read_abalone(request: Request):
-    content = "Pulsar 페이지입니다."
-    return templates.TemplateResponse("pulsars_perform_input.html", {"request": request, "content": content})
+    return templates.TemplateResponse("pulsars_perform_input.html", {"request": request})
 
 # Pulsar validation 페이지 라우트
 @app.post("/pulsars_perform_evaluate/")
@@ -181,21 +166,25 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
         f.write(contents)
 
     # regression_model.py에서 evaluate_model 함수 호출
-    f1_score, recall = binary_model.evaluate_model("validation_set.csv")
+    f1_score, precision, recall, Time_taken = binary_model.evaluate_model("validation_set.csv")
 
     # # 임시 검증 세트 파일 삭제
     os.remove("validation_set.csv")
 
     # HTML 템플릿에 mse와 mae 값을 넘겨 웹페이지에 출력
-    return templates.TemplateResponse("pulsars_perform_evaluate.html", {"request": request, "f1_score": np.round(f1_score), "recall":np.round(recall)})
+    return templates.TemplateResponse(
+        "pulsars_perform_evaluate.html", {"request": request,
+                                          "f1_score": np.round(f1_score,3),
+                                          "precision":np.round(precision,3),
+                                          "recall":np.round(recall,3),
+                                          "Time_taken":np.round(recall,2)})
 
 #----------------------------------------------------------------------------------------
 #Pulsars 기능 구현
 # Pulsars 페이지 라우트
 @app.get("/pulsars", response_class=HTMLResponse)
 async def read_pulsars(request: Request):
-    content = "Pulsars 페이지입니다."
-    return templates.TemplateResponse("pulsars.html", {"request": request, "content": content})
+    return templates.TemplateResponse("pulsars.html", {"request": request})
 
 # 예측 결과를 담을 Pydantic 모델 정의
 class PulsarPredictionResult(BaseModel):
@@ -298,13 +287,17 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
         f.write(contents)
 
     # regression_model.py에서 evaluate_model 함수 호출
-    loss, accuracy = multi_model.evaluate_model("validation_set.csv")
+    loss, accuracy, Time_taken = multi_model.evaluate_model("validation_set.csv")
 
     # # 임시 검증 세트 파일 삭제
     os.remove("validation_set.csv")
 
     # HTML 템플릿에 mse와 mae 값을 넘겨 웹페이지에 출력
-    return templates.TemplateResponse("steel_perform_evaluate.html", {"request": request, "loss": np.round(loss,3), "accuracy": np.round(accuracy,3)})
+    return templates.TemplateResponse("steel_perform_evaluate.html",
+                                      {"request": request,
+                                       "loss": np.round(loss,3),
+                                       "accuracy": np.round(accuracy,3),
+                                       "Time_taken":np.round(Time_taken,2)})
 
 #----------------------------------------------------------------------------------------
 #Steel 기능 구현
@@ -409,12 +402,13 @@ def perform_steel_prediction(
     # 예측 시간 측정 종료 및 계산
     end_time = time.time()
     time_taken = end_time - start_time
+    rounded_time_taken = round_prediction_time(time_taken, 2)
 
     accuracy = 0.6967
     
     return SteelPredictionResult(
         target =predicted_fault,
-        time_taken =time_taken,
+        time_taken =rounded_time_taken,
         accuracy =accuracy, 
         X_Minimum =X_Minimum,
         X_Maximum =X_Maximum,
@@ -446,7 +440,7 @@ def perform_steel_prediction(
         )
 
 # Pulsars 예측 페이지 라우트
-@app.post("/predict_Steel", response_class=HTMLResponse)
+@app.post("/predict_steel", response_class=HTMLResponse)
 async def predict_steel(request: Request,
                           X_Minimum : float= Form(...),
                           X_Maximum : float= Form(...),

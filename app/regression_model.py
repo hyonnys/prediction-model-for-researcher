@@ -1,15 +1,9 @@
 import pandas as pd
-import math
-import numpy as np
-from sklearn.model_selection import train_test_split
-from keras.models import Sequential
-from keras.layers import Dense
+import joblib
 from keras.optimizers import RMSprop
-from keras.layers import Dropout
-from sklearn.preprocessing import StandardScaler
 from sklearn.metrics import *
-import tensorflow as tf
 from tensorflow.keras.models import model_from_json
+import time
 
  # 모델 로드
 json_file = open('models/regression_m.json', 'rb')
@@ -29,15 +23,23 @@ def evaluate_model(validation_file_path):
     #데이터 전처리
     validation_data.drop('Sex', axis=1, inplace=True)
 
-    #scaler 추가해야함
+    # Scaler 객체를 불러오기
+    scaler = joblib.load('models/regression_scaler.pkl')
 
     # Rings 타겟 컬럼 분리
     validation_target = validation_data["Rings"].values
     validation_features = validation_data.drop(columns=["Rings"]).values
 
+    # transform
+    validation_features = scaler.transform(validation_features)
+
+    #start time
+    start_time = time.time()
     # validation_set으로 모델 평가
     predictions = model.predict(validation_features).flatten()
+    end_time = time.time()
     mse = mean_squared_error(validation_target, predictions)
     mae = mean_absolute_error(validation_target, predictions)
+    Time_taken = end_time - start_time
+    return mse, mae, Time_taken
 
-    return mse, mae

@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 import joblib
 from keras.optimizers import RMSprop
 from sklearn.metrics import *
@@ -39,7 +40,7 @@ def evaluate_model(validation_file_path):
     predictions = model.predict(validation_features).flatten()
     end_time = time.time()
     mse = mean_squared_error(validation_target, predictions)
-    mae = mean_absolute_error(validation_target, predictions)
+
     Time_taken = end_time - start_time
-    return mse, mae, Time_taken
+    return mse, Time_taken
 

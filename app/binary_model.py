@@ -1,11 +1,14 @@
 import pandas as pd
+import numpy as np
+import xgboost as xgb
 from sklearn.metrics import classification_report
 from sklearn.metrics import *
 import joblib
 import time
 
 # 모델 로드
-xgboost_model = joblib.load("models/binary_model.pkl")
+loaded_model = xgb.Booster()
+loaded_model.load_model('models/binary_model.xgb')
 
 # 입력된 csv file로 val set 생성 및 모델 평가
 def evaluate_model(validation_file_path, target_class=1):
@@ -22,12 +25,20 @@ def evaluate_model(validation_file_path, target_class=1):
 
     # transform
     validation_features = scaler.transform(validation_features)
+
+    # DMatrix 형식으로 변환
+    dvalidation = xgb.DMatrix(validation_features)
+    
     #start time
     start_time = time.time()
     # validation_set으로 모델 평가
-    predictions = xgboost_model.predict(validation_features)
+    predictions = loaded_model.predict(dvalidation)
+
     end_time = time.time()
-    report = classification_report(validation_target, predictions, digits=3, output_dict=True)
+    # 모델 출력값을 이진 분류 레이블로 변환
+    binary_predictions = np.where(predictions >= 0.5, 1, 0)
+
+    report = classification_report(validation_target, binary_predictions, digits=3, output_dict=True)
     
     #소요 시간 계산
     Time_taken = end_time - start_time
@@ -37,7 +48,6 @@ def evaluate_model(validation_file_path, target_class=1):
 
     # F1-score, 재현율(recall) 값 추출
     f1_score = target_metrics["f1-score"]
-    precision = target_metrics["precision"]
     recall = target_metrics["recall"]
 
-    return f1_score, precision, recall, Time_taken
+    return f1_score, recall, Time_taken

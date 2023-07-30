@@ -5,7 +5,8 @@ from fastapi.responses import HTMLResponse #pip install
 from fastapi.templating import Jinja2Templates #pip install
 from fastapi.staticfiles import StaticFiles #pip install
 from pydantic import BaseModel 
-import joblib 
+import joblib
+import xgboost as xgb
 #--------------------------------------
 import os
 import regression_model 
@@ -49,13 +50,13 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
         f.write(contents)
 
     # regression_model.py에서 evaluate_model 함수 호출
-    mse, mae, Time_taken = regression_model.evaluate_model("validation_set.csv")
+    mse, Time_taken = regression_model.evaluate_model("validation_set.csv")
 
     # # 임시 검증 세트 파일 삭제
     os.remove("validation_set.csv")
 
-    # HTML 템플릿에 mse와 mae 값을 넘겨 웹페이지에 출력
-    return templates.TemplateResponse("abalone_perform_evaluate.html", {"request": request, "mse": np.round(mse,2), "mae": np.round(mae,2), "Time_taken": np.round(Time_taken,2)})
+    # HTML 템플릿에 mse 값을 넘겨 웹페이지에 출력
+    return templates.TemplateResponse("abalone_perform_evaluate.html", {"request": request, "mse": np.round(mse,2), "Time_taken": np.round(Time_taken,2)})
 
 #----------------------------------------------------------------------------------------
 #Abalone페이지 예측 기능 구현
@@ -111,7 +112,7 @@ def perform_abalone_prediction(sex: str,
     time_taken = end_time - start_time
     rounded_time_taken = round_prediction_time(time_taken, 2)
 
-    accuracy = 0.849
+    accuracy = 0.84
 
     return AbalonePredictionResult(
         rings=rounded_rings,
@@ -166,7 +167,7 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
         f.write(contents)
 
     # regression_model.py에서 evaluate_model 함수 호출
-    f1_score, precision, recall, Time_taken = binary_model.evaluate_model("validation_set.csv")
+    f1_score, recall, Time_taken = binary_model.evaluate_model("validation_set.csv")
 
     # # 임시 검증 세트 파일 삭제
     os.remove("validation_set.csv")
@@ -175,7 +176,6 @@ async def evaluate_validation_set(request: Request, file: UploadFile = File(...)
     return templates.TemplateResponse(
         "pulsars_perform_evaluate.html", {"request": request,
                                           "f1_score": np.round(f1_score,3),
-                                          "precision":np.round(precision,3),
                                           "recall":np.round(recall,3),
                                           "Time_taken":np.round(recall,2)})
 
@@ -211,28 +211,29 @@ def perform_pulsar_prediction(mean_profile: float,
                                skewness_dmsnr: float) -> PulsarPredictionResult:
     
     # model 로드
-    xgboost_model = joblib.load("models/binary_model.pkl")
-    
-    # 입력 데이터를 변환
+    loaded_model = xgb.Booster()
+    loaded_model.load_model('models/binary_model.xgb')
+
+    # 입력 데이터를 DMatrix 형식으로 변환
     input_data = np.array([[mean_profile, std_profile, kurtosis_profile, skewness_profile, mean_dmsnr, std_dmsnr, kurtosis_dmsnr, skewness_dmsnr]])
-    
+    dinput = xgb.DMatrix(data=input_data)
+
     # 예측 시간 측정 시작
     start_time = time.time()
 
     # 모델을 사용하여 예측 수행
-    target = xgboost_model.predict(input_data)[0]
-    if target == 0:
-        target = "중성자별이 아닙니다"
-    else:
-        target = "중성자별입니다"
+    predictions = loaded_model.predict(dinput)
+
+    # 결과값에 따라 클래스를 할당
+    target = "중성자별입니다" if predictions[0] >= 0.5 else "중성자별이 아닙니다"
 
     # 예측 시간 측정 종료 및 계산
     end_time = time.time()
     time_taken = end_time - start_time
     rounded_time_taken = round_prediction_time(time_taken, 2)
 
-    f1_score = 0.849 
-
+    f1_score = 0.876
+    
     return PulsarPredictionResult(
         target=target, #중성자 별 여부
         time_taken=rounded_time_taken, #time_taken
@@ -404,7 +405,7 @@ def perform_steel_prediction(
     time_taken = end_time - start_time
     rounded_time_taken = round_prediction_time(time_taken, 2)
 
-    accuracy = 0.6967
+    accuracy = 0.697
     
     return SteelPredictionResult(
         target =predicted_fault,

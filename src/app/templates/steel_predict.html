@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Predict result</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="static/css/predict_mdb.min.css" />
+</head>
+<body>
+      <!--Main Navigation-->
+  <header>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-white">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand nav-link" target="_blank" href="https://github.com/hyonnys/tp1-adn">
+          <strong>ADN team</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.codestates.com" rel="nofollow"
+                target="_blank">Codestates</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Main layout-->
+  <main class="my-5">
+    <div class="container">
+      <!--Section: Content-->
+      <section class="text-center text-md-start">
+      <!-- Post -->
+        <form action="/predict_steel" method="post"></form>
+        {% if prediction %}
+        <h4 class="mb-5"><strong>강철판 결함 분류</strong></h4>
+        <div class="row">
+          <div class="col-md-8 mb-4">
+            <h5>Prediction Result:</h5>
+            <p><li>강판 하자 종류 Steel fault: {{ prediction.target }}</li></p>
+            <p><li>소요 시간 Time Taken(s): {{ prediction.time_taken }}</li></p>
+            <p><li>정확도 Accuracy: {{ prediction.accuracy }}</li></p>
+            <h5>Input data:</h5>
+            <p>1. X_Minimum: {{ prediction.X_Minimum }}</p>
+            <p>2. X_Maximum: {{ prediction.X_Maximum }}</p>
+            <p>3. Y_Minimum: {{ prediction.Y_Minimum }}</p>
+            <p>4. Y_Maximum: {{ prediction.Y_Maximum }}</p>
+            <p>5. Pixels_Areas: {{ prediction.Pixels_Areas }}</p>
+            <p>6. X_Perimeter: {{ prediction.X_Perimeter }}</p>
+            <p>7. Y_Perimeter: {{ prediction.Y_Perimeter }}</p>
+            <p>8. Sum_of_Luminosity: {{ prediction.Sum_of_Luminosity }}</p>
+            <p>9. Minimum_of_Luminosity: {{ prediction.Minimum_of_Luminosity }}</p>
+            <p>10. Maximum_of_Luminosity: {{ prediction.Maximum_of_Luminosity }}</p>
+            <p>11. Length_of_Conveyer: {{ prediction.Length_of_Conveyer }}</p>
+            <p>12. TypeOfSteel_A300: {{ prediction.TypeOfSteel_A300 }}</p>
+            <p>13. TypeOfSteel_A400: {{ prediction.TypeOfSteel_A400 }}</p>
+            <p>14. Steel_Plate_Thickness: {{ prediction.Steel_Plate_Thickness }}</p>
+            <p>15. Edges_Index: {{ prediction.Edges_Index }}</p>
+            <p>16. Empty_Index: {{ prediction.Empty_Index }}</p>
+            <p>17. Square_Index: {{ prediction.Square_Index }}</p>
+            <p>18. Outside_X_Index: {{ prediction.Outside_X_Index }}</p>
+            <p>19. Edges_X_Index: {{ prediction.Edges_X_Index }}</p>
+            <p>20. Edges_Y_Index: {{ prediction.Edges_Y_Index }}</p>
+            <p>21. Outside_Global_Index: {{ prediction.Outside_Global_Index }}</p>
+            <p>22. LogOfAreas: {{ prediction.LogOfAreas }}</p>
+            <p>23. Log_X_Index: {{ prediction.Log_X_Index }}</p>
+            <p>24. Log_Y_Index: {{ prediction.Log_Y_Index }}</p>
+            <p>25. Orientation_Index: {{ prediction.Orientation_Index }}</p>
+            <p>26. Luminosity_Index: {{ prediction.Luminosity_Index }}</p>
+            <p>27. SigmoidOfAreas: {{ prediction.SigmoidOfAreas }}</p>
+          </div>  
+          <a role="button" button type="button" class="btn btn-primary" aria-current="page" href="/steel">다시 분류하기</a>
+         {% endif %}
+      </section>
+      <!--Section: Content-->
+
+  <!--Main layout-->
+
+  <!--Footer-->
+  <footer class="bg-light text-lg-start">
+    <div class="py-4 text-center">
+      <a role="button" class="btn btn-primary btn-lg m-2"
+        href="/" rel="nofollow">
+        Home
+      </a>
+      <a role="button" class="btn btn-primary btn-lg m-2" href="/steel_p">
+        Evaluate
+      </a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-dark" href="https://www.codestates.com/">Codestates.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!--Footer-->
+    <!-- MDB -->
+    <script type="text/javascript" src="static/js/predict_mdb.min.js"></script>
+</body>
+</html>

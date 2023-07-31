@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>abalone_predict_input</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="static/css/input_mdb.min.css" />
+
+</head>
+<body>
+      <!--Main Navigation-->
+  <header>
+    <style>
+      #intro {
+        background-image: url(https://media.istockphoto.com/id/1129886007/photo/waves-breaking-on-the-coast-of-lanzarote-la-santa-canary-island.jpg?s=612x612&w=0&k=20&c=tDOcOaC1FpHZkyHzZIO7RTmzReGWGJDrrcevid4hz98=);
+        height: 100vh;
+      }
+
+      /* Height for devices larger than 576px */
+      @media (min-width: 992px) {
+        #intro {
+          margin-top: -58.59px;
+        }
+      }
+
+      .navbar .nav-link {
+        color: #fff !important;
+      }
+    </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand nav-link" target="_blank" href="https://github.com/hyonnys/tp1-adn">
+          <strong>ADN team</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.codestates.com/" rel="nofollow"
+                target="_blank">Codestates</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav d-flex flex-row">
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image shadow-2-strong">
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-md-8">
+              <h1>Input data</h1>
+              <form class="bg-white rounded shadow-5-strong p-5" action="/predict_abalone" method="post">
+                <!-- input data -->
+                <div class="form-outline mb-4">
+                    <label class="form-label" for="sex">1. Sex</label>
+                    <select id="sex" class="form-select" name="sex" required>
+                      <option value="M">Male</option>
+                      <option value="F">Female</option>
+                      <option value="I">Infant</option>
+                    </select>
+                  </div>
+                  <div class="form-outline mb-4">
+                    <input type="number" id="length" class="form-control" name="length" step="0.01" required />
+                    <label class="form-label" for="length">2. Length(mm)</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="diameter" class="form-control" name="diameter" step="0.01" required />
+                    <label class="form-label" for="diameter">3. Diameter(mm) </label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="height" class="form-control" name="height" step="0.01" required />
+                    <label class="form-label" for="height">4. Height(mm)</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="whole_weight" class="form-control" name="whole_weight" step="0.01" required />
+                    <label class="form-label" for="whole_weight">5. Whole Weight(g)</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="shucked_weight" class="form-control" name="shucked_weight" step="0.01" required />
+                    <label class="form-label" for="shucked_weight">6. Shucked Weight(g)</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="viscera_weight" class="form-control" name="viscera_weight" step="0.01" required />
+                    <label class="form-label" for="viscera_weight">7. Viscera Weight(g)</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="shell_weight" class="form-control" name="shell_weight" step="0.01" required />
+                    <label class="form-label" for="shell_weight">8. Shell Weight(g)</label>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Predict</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Footer-->
+  <footer class="bg-light text-lg-start">
+    <div class="py-4 text-center">
+      <a role="button" class="btn btn-primary btn-lg m-2"
+        href="/" rel="nofollow" >
+        Home
+      </a>
+      <a role="button" class="btn btn-primary btn-lg m-2" href="abalone_p">
+        Evaluate
+      </a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-dark" href="https://www.codestates.com/">Codestates.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!--Footer-->
+    <!-- MDB -->
+    <script type="text/javascript" src="static\js\input_mdb.min.js"></script>
+</body>
+</html>

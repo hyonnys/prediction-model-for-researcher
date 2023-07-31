@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Steel plate_predict_input</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.11.2/css/all.css" />
+    <!-- Google Fonts Roboto -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" />
+    <!-- MDB -->
+    <link rel="stylesheet" href="static/css/input_mdb.min.css" />
+
+</head>
+<body>
+      <!--Main Navigation-->
+  <header>
+    <style>
+      #intro {
+        background-image: url(https://www.hydrocarbons-technology.com/wp-content/uploads/sites/9/2017/09/4-image-Singapore.jpg);
+        height: 270vh;
+      }
+
+      /* Height for devices larger than 576px */
+      @media (min-width: 992px) {
+        #intro {
+          margin-top: -58.59px;
+        }
+      }
+
+      .navbar .nav-link {
+        color: #fff !important;
+      }
+    </style>
+
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark d-none d-lg-block" style="z-index: 2000;">
+      <div class="container-fluid">
+        <!-- Navbar brand -->
+        <a class="navbar-brand nav-link" target="_blank" href="https://github.com/hyonnys/tp1-adn">
+          <strong>ADN team</strong>
+        </a>
+        <button class="navbar-toggler" type="button" data-mdb-toggle="collapse" data-mdb-target="#navbarExample01"
+          aria-controls="navbarExample01" aria-expanded="false" aria-label="Toggle navigation">
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarExample01">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+              <a class="nav-link" aria-current="page" href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="https://www.codestates.com/" rel="nofollow"
+                target="_blank">Codestates</a>
+            </li>
+          </ul>
+
+          <ul class="navbar-nav d-flex flex-row">
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Navbar -->
+
+    <!-- Background image -->
+    <div id="intro" class="bg-image shadow-2-strong">
+      <div class="mask d-flex align-items-center h-100" style="background-color: rgba(0, 0, 0, 0.8);">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-xl-5 col-md-8">
+              <h1>Input data</h1>
+              <form class="bg-white rounded shadow-5-strong p-5" action="/predict_steel" method="post">
+                <!-- input data -->
+                <div class="form-outline mb-4">
+                    <input type="number" id="X_Minimum" class="form-control" name="X_Minimum" step="1" required />
+                    <label class="form-label" for="X_Minimum">1. X_Minimum:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="X_Maximum" class="form-control" name="X_Maximum" step="1" required />
+                    <label class="form-label" for="X_Maximum">2. X_Maximum:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Y_Minimum" class="form-control" name="Y_Minimum" step="1" required />
+                    <label class="form-label" for="Y_Minimum">3. Y_Minimum:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Y_Maximum" class="form-control" name="Y_Maximum" step="1" required />
+                    <label class="form-label" for="Y_Maximum">4. Y_Maximum:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Pixels_Areas" class="form-control" name="Pixels_Areas" step="1" required />
+                    <label class="form-label" for="Pixels_Areas">5. Pixels_Areas:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="X_Perimeter" class="form-control" name="X_Perimeter" step="1" required />
+                    <label class="form-label" for="X_Perimeter">6. X_Perimeter:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Y_Perimeter" class="form-control" name="Y_Perimeter" step="1" required />
+                    <label class="form-label" for="Y_Perimeter">7. Y_Perimeter:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Sum_of_Luminosity" class="form-control" name="Sum_of_Luminosity" step="1" required />
+                    <label class="form-label" for="Sum_of_Luminosity">8. Sum_of_Luminosity:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Minimum_of_Luminosity" class="form-control" name="Minimum_of_Luminosity" step="1" required />
+                    <label class="form-label" for="Minimum_of_Luminosity">9. Minimum_of_Luminosity:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Maximum_of_Luminosity" class="form-control" name="Maximum_of_Luminosity" step="1" required />
+                    <label class="form-label" for="Maximum_of_Luminosity">10. Maximum_of_Luminosity:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Length_of_Conveyer" class="form-control" name="Length_of_Conveyer" step="1" required />
+                    <label class="form-label" for="Length_of_Conveyer">11. Length_of_Conveyer:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="TypeOfSteel_A300" class="form-control" name="TypeOfSteel_A300" required />
+                    <label class="form-label" for="TypeOfSteel_A300">12. TypeOfSteel_A300:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="TypeOfSteel_A400" class="form-control" name="TypeOfSteel_A400" required />
+                    <label class="form-label" for="TypeOfSteel_A400">13. TypeOfSteel_A400:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Steel_Plate_Thickness" class="form-control" name="Steel_Plate_Thickness" step="5" required />
+                    <label class="form-label" for="Steel_Plate_Thickness">14. Steel_Plate_Thickness:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Edges_Index" class="form-control" name="Edges_Index" step="0.0001" required />
+                    <label class="form-label" for="Edges_Index">15. Edges_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Empty_Index" class="form-control" name="Empty_Index" step="0.0001" required />
+                    <label class="form-label" for="Empty_Index">16. Empty_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Square_Index" class="form-control" name="Square_Index" step="0.0001" required />
+                    <label class="form-label" for="Square_Index">17. Square_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Outside_X_Index" class="form-control" name="Outside_X_Index" step="0.0001" required />
+                    <label class="form-label" for="Outside_X_Index">18. Outside_X_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Edges_X_Index" class="form-control" name="Edges_X_Index" step="0.0001" required />
+                    <label class="form-label" for="Edges_X_Index">19. Edges_X_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Edges_Y_Index" class="form-control" name="Edges_Y_Index" step="0.0001" required />
+                    <label class="form-label" for="Edges_Y_Index">20. Edges_Y_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Outside_Global_Index" class="form-control" name="Outside_Global_Index" step="0.5" required />
+                    <label class="form-label" for="Outside_Global_Index">21. Outside_Global_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="LogOfAreas" class="form-control" name="LogOfAreas" step="0.0001" required />
+                    <label class="form-label" for="LogOfAreas">22. LogOfAreas:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Log_X_Index" class="form-control" name="Log_X_Index" step="0.0001" required />
+                    <label class="form-label" for="Log_X_Index">23. Log_X_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Log_Y_Index" class="form-control" name="Log_Y_Index" step="0.0001" required />
+                    <label class="form-label" for="Log_Y_Index">24. Log_Y_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Orientation_Index" class="form-control" name="Orientation_Index" step="0.0001" required />
+                    <label class="form-label" for="Orientation_Index">25. Orientation_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="Luminosity_Index" class="form-control" name="Luminosity_Index" step="0.0001" required />
+                    <label class="form-label" for="Luminosity_Index">26. Luminosity_Index:</label>
+                </div>
+                <div class="form-outline mb-4">
+                    <input type="number" id="SigmoidOfAreas" class="form-control" name="SigmoidOfAreas" step="0.0001" required />
+                    <label class="form-label" for="SigmoidOfAreas">27. SigmoidOfAreas:</label>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-primary btn-block">Predict</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Background image -->
+  </header>
+  <!--Main Navigation-->
+
+  <!--Footer-->
+  <footer class="bg-light text-lg-start">
+    <div class="py-4 text-center">
+      <a role="button" class="btn btn-primary btn-lg m-2"
+        href="/" rel="nofollow">
+        Home
+      </a>
+      <a role="button" class="btn btn-primary btn-lg m-2" href="steel_p/">
+        Evaluate
+      </a>
+    </div>
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
+      © 2023 Copyright:
+      <a class="text-dark" href="https://www.codestates.com/">Codestates.com</a>
+    </div>
+    <!-- Copyright -->
+  </footer>
+  <!--Footer-->
+    <!-- MDB -->
+    <script type="text/javascript" src="static\js\input_mdb.min.js"></script>
+</body>
+</html>
+

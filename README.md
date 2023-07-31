@@ -1,2 +1,2 @@
-# tp1-adn
+# prediction-model-for-researcher
 AIB Team Project 1 - Team ADN
